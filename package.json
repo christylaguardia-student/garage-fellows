@@ -1,0 +1,26 @@
+{
+  "name": "garage-fellows",
+  "version": "1.0.0",
+  "description": "Code301 Final Project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christylaguardia/garage-fellows.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christylaguardia/garage-fellows/issues"
+  },
+  "homepage": "https://github.com/christylaguardia/garage-fellows#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "page": "^1.7.1",
+    "pg": "^6.2.3"
+  }
+}
