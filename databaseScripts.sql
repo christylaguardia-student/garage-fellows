@@ -15,9 +15,14 @@ CREATE TABLE users (
 
 CREATE TABLE vehicles (
   vehicleId SERIAL,
-  vehicleYear INTEGER,
-  vehicleMake VARCHAR(50),
-  vehicleModel VARCHAR(50),
+	year INTEGER NOT NULL,
+	make VARCHAR(50) NOT NULL,
+	model VARCHAR(50) NOT NULL,
+	vclass VARCHAR(50),
+	drive VARCHAR(50),
+	cylinders INTEGER,
+	displ INTEGER,
+	trany VARCHAR(50) NOT NULL,
   PRIMARY KEY (vehicleId)
 );
 
@@ -43,8 +48,8 @@ VALUES
 
 
 
-INSERT INTO vehicles (vehicleYear, vehicleMake, vehicleModel)
-VALUES (1992, 'Chevrolet', 'Suburban');
+--INSERT INTO vehicles (vehicleYear, vehicleMake, vehicleModel)
+--VALUES (1992, 'Chevrolet', 'Suburban');
 
 
 
