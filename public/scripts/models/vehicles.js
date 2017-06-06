@@ -13,4 +13,22 @@ function Vehicle(sourceData) {
 };
 
 //create array in the object to hold all functions for the form
-Vehicle.all = [];
+vehicle.all = [];
+
+
+
+  vehicle.getYears = function (callback) {
+
+    $.ajax({
+      url: '/years',
+      method: 'GET',
+    })
+      err => {
+        console.error(err)
+      }
+      
+  };
+
+
+  module.vehicle = vehicle;
+})(window);

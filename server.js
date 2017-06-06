@@ -27,4 +27,35 @@ app.get('/', (request, response) => {
   .catch(console.error);
 });
 
+app.get('/years', (request, response) => {
+  client.query(`
+    SELECT DISTINCT year
+    FROM vehicles ORDER BY year DESC
+    `)
+  .then(result => response.send(result.rows))
+  .catch(console.error);
+});
+
+app.get('/makes', (request, response) => {
+  client.query(`
+    SELECT DISTINCT make
+    FROM vehicles 
+    WHERE year= 1992
+    `)
+  .then(result => response.send(result.rows))
+  .catch(console.error);
+});
+
+app.get('/models', (request, response) => {
+  client.query(`
+    SELECT DISTINCT model
+    FROM vehicles 
+    WHERE year= 1992 AND make= 'Chevrolet'
+    `)
+  .then(result => response.send(result.rows))
+  .catch(console.error);
+});
+
+
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
