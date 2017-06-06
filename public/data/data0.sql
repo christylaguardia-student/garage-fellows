@@ -1,6 +1,8 @@
-CREATE DATABASE  garagefellows;
+--CREATE DATABASE  garagefellows;
 
-
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS vehicles;
+DROP TABLE IF EXISTS inventory;
 
 CREATE TABLE users (
 	userId SERIAL,
@@ -35,6 +37,7 @@ CREATE TABLE inventory (
   partName VARCHAR(50),
   description VARCHAR(1000),
   price MONEY,
+	datecreated DATE,
   PRIMARY KEY (inventoryId)
 );
 
@@ -50,13 +53,3 @@ VALUES
 
 --INSERT INTO vehicles (vehicleYear, vehicleMake, vehicleModel)
 --VALUES (1992, 'Chevrolet', 'Suburban');
-
-
-
-INSERT INTO inventory (userId, vehicleId, partName, description, price)
-VALUES
-	(1, 1, 'Alternator', 'New Alternator, bought the thign thten stoafewiogwlkagle', 70),
-  (2, 1, 'Alternator', 'Used Alternator, bought the thign thten stoafewiogwlkagle', 40.99),
-  (2, 1, 'Alternator', 'Used Alternator, bought the thign thten stoafewiogwlkagle', 40.95),
-  (3, 1, 'Alternator', 'Newer Alternator, bought the thign thten stoafewiogwlkagle', 100),
-  (3, 1, 'Alternator', 'Newer Alternator, bought the thign thten stoafewiogwlkagle', 105.75);

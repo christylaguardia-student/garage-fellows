@@ -17,12 +17,23 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
-app.get('/', (request, response) => {
+app.get('/inventory', (request, response) => {
+  console.log('getting data from db');
   client.query(`
-    SELECT *
+    SELECT inventoryid,
+      year,
+      make,
+      model,
+      partname,
+      description,
+      price,
+      email,
+      zipcode,
+      datecreated
     FROM inventory
     INNER JOIN vehicles ON vehicles.vehicleId = inventory.vehicleId
-    INNER JOIN users ON users.userId = inventory.userId`)
+    INNER JOIN users ON users.userId = inventory.userId
+    ORDER BY datecreated DESC`)
   .then(result => response.send(result.rows))
   .catch(console.error);
 });
