@@ -101,23 +101,33 @@
           </select>
         </div>
         <div>
+          <label for="add-partname">Part Name:</label>
+          <input id="add-partname" type="text" placeholder="Part Name" maxlength="50" required>
+        </div>
+        <div>
           <label for="add-description">Description:</label>
-          <textarea id="add-description" placeholder="Optional"></textarea>
+          <textarea id="add-description" placeholder="Optional" maxlength="1000"></textarea>
         </div>
         <div>
-          <label for="price">Price:</label>
-          <input id="price" type="number" placeholder="100.00" min="0.01" step="0.01" required>
+          <label for="add-price">Price:</label>
+          <input id="add-price" type="number" placeholder="100.00" min="0.01" step="0.01" required>
         </div>
         <div>
-          <label for="email">E-mail:</label>
-          <input id="email" type="email" placeholder="someone@example.com" required>
+          <label for="add-firstname">First Name:</label>
+          <input id="add-firstname" type="text" placeholder="First Name" maxlength="50" required>
+          <br>
+          <label for="add-lastname">Last Name:</label>
+          <input id="add-lastname" type="text" placeholder="Last Name" maxlength="50" required>
+          <br>
+          <label for="add-email">E-mail:</label>
+          <input id="add-email" type="email" placeholder="someone@example.com" maxlength="254" required>
         </div>
         <div>
-          <label for="zipcode">Shipping Zip Code:</label>
-          <input id="zipcode" type="text" placeholder="Zip Code" pattern="[0-9]{5}" required>
+          <label for="add-zipcode">Shipping Zip Code:</label>
+          <input id="add-zipcode" type="text" placeholder="Zip Code" pattern="[0-9]{5}" required>
         </div>
         <div>
-          <button type="submit">Post</button>
+          <button type="submit" id="add-button">Post</button>
         </div>
       </form>
     </section>
@@ -136,6 +146,8 @@
     <script type="text/javascript" src="scripts/models/inventory.js"></script>
     <script type="text/javascript" src="scripts/views/inventoryView.js"></script>
     <script type="text/javascript" src="scripts/controllers/inventoryController.js"></script>
+
+    <script type="text/javascript" src="scripts/views/newInventoryView.js"></script>
 
     <script type="text/javascript" src="scripts/controllers/routes.js"></script>
   </body>

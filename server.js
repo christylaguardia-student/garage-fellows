@@ -68,29 +68,36 @@ app.get('/models', (request, response) => {
 });
 
 app.post('/new', (request, response) => {
+  // QUESTION: seems to be inserting an empty row also
   client.query(`
-    INSERT INTO users (email, zipcode)
-    VALUES ($1, $2) ON CONFLICT DO NOTHING
-    `,
-  [
-    request.body.email, request.body.zipcode
-  ])
-  // .then(() => {
-  //   client.query(`
-  //     INSERT INTO inventory (vehicleid, userid, partname, description, price)
-  //     SELECT vehicleid, userid, $1, $2, $3
-  //     FROM users
-  //     WHERE userid = $4
-  //     `,
-  //     [
-  //       request.body.partname,
-  //       request.body.description,
-  //       request.body.price,
-  //       request.body.userid
-  //     ]
-  //   )
-  // })
-  .then(() => response.send('Insert complete'))
+    INSERT INTO users (userfirstname, userlastname, email, zipcode)
+    VALUES ($1, $2, $3, $4) ON CONFLICT DO NOTHING
+    `,]
+    [
+      request.body.userfirstname,
+      request.body.userlastname,
+      request.body.email,
+      request.body.zipcode
+    ]
+  )
+  .then(() => {
+    client.query(`
+      INSERT INTO inventory (userid, vehicleid, partname, description, price, datecreated)
+      VALUES (
+        (SELECT userid FROM users WHERE email=$1 LIMIT 1)
+        , $2, $3, $4, $5, $6)
+      `,
+      [
+        request.body.email,
+        request.body.vehicleid,
+        request.body.partname,
+        request.body.description,
+        request.body.price,
+        request.body.datecreated
+      ]
+    )
+  })
+  .then(() => response.send('Your part has been posted!'))
   .catch(console.error);
 });
 
