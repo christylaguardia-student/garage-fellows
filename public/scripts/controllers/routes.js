@@ -1,4 +1,4 @@
 'use strict';
 
-page('/', inventoryController.loadAll);
+page('/', inventoryController.index);
 page();
