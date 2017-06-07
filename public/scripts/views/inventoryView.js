@@ -12,17 +12,27 @@
 
   inventoryView.handleSortBy = function() {
     $('#inventory-sort').on('change', function() {
+
       // check what the user selected
       var selected = $(this).val();
       console.log('the user picked sort by', selected);
 
-      // sort the inventory articles
-      // TODO: this is not working
-      if (selected === "priceDesc") {
-        Inventory.all.sort(function(a,b) { return (parseInt(a.price) > parseInt(b.price)) });
-      } else if (selected === "priceAsc") {
-        Inventory.all.sort(function(a,b) { return (parseInt(a.price) < parseInt(b.price)) });
+      // sort the inventory
+      if (selected === "priceAsc") {
+        Inventory.all.sort(function(a, b) { return a.priceNum > b.priceNum });
+      } else if (selected === "priceDesc") {
+        Inventory.all.sort(function(a, b) { return a.priceNum < b.priceNum });
+      } else if (selected === "partnameAsc") {
+        Inventory.all.sort(function(a, b) { return a.partname > b.partname });
+      } else if (selected === "partnameDesc") {
+        Inventory.all.sort(function(a, b) { return a.partname < b.partname });
       }
+
+      // remove the un-sorted inventory
+      $('#inventory').find('article').remove();
+
+      // add the sorted inventory
+      inventoryView.initIndexPage();
     })
   }
 

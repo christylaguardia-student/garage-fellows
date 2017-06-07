@@ -1,0 +1,9 @@
+#add-form {
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+#add-form label, #add-form input {
+  display: inline-block;
+  width: 10rem;
+}

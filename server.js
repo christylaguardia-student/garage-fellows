@@ -50,7 +50,7 @@ app.get('/years', (request, response) => {
 app.get('/makes', (request, response) => {
   client.query(`
     SELECT DISTINCT make
-    FROM vehicles 
+    FROM vehicles
     WHERE year= 1992
     `)
   .then(result => response.send(result.rows))
@@ -60,13 +60,40 @@ app.get('/makes', (request, response) => {
 app.get('/models', (request, response) => {
   client.query(`
     SELECT DISTINCT model
-    FROM vehicles 
+    FROM vehicles
     WHERE year= 1992 AND make= 'Chevrolet'
     `)
   .then(result => response.send(result.rows))
   .catch(console.error);
 });
 
+app.post('/new', (request, response) => {
+  client.query(`
+    INSERT INTO users (email, zipcode)
+    VALUES ($1, $2) ON CONFLICT DO NOTHING
+    `,
+  [
+    request.body.email, request.body.zipcode
+  ])
+  // .then(() => {
+  //   client.query(`
+  //     INSERT INTO inventory (vehicleid, userid, partname, description, price)
+  //     SELECT vehicleid, userid, $1, $2, $3
+  //     FROM users
+  //     WHERE userid = $4
+  //     `,
+  //     [
+  //       request.body.partname,
+  //       request.body.description,
+  //       request.body.price,
+  //       request.body.userid
+  //     ]
+  //   )
+  // })
+  .then(() => response.send('Insert complete'))
+  .catch(console.error);
+});
 
+// TODO: delete items
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
