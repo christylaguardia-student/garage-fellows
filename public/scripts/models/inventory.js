@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 
-=======
 'use strict';
 
 (function(module) {
@@ -47,4 +45,3 @@
 
   module.Inventory = Inventory;
 })(window);
->>>>>>> 3f2bbfcdc9ab5f1ef6b19d9ccae270afefba40c8
