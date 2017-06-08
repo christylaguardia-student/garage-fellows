@@ -15,6 +15,7 @@
   }
 
   navigation.loadSearchPage = function() {
+    searchFilters();
     $('.tab-content').hide();
     $('#search').fadeIn(1000);
   }
