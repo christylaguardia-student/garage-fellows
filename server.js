@@ -34,7 +34,9 @@ app.get('/inventory', (request, response) => {
     FROM inventory
     INNER JOIN vehicles ON vehicles.vehicleId = inventory.vehicleId
     INNER JOIN users ON users.userId = inventory.userId
-    ORDER BY datecreated DESC`)
+    ORDER BY datecreated DESC
+    LIMIT 100
+    `)
   .then(result => response.send(result.rows))
   .catch(console.error);
 });
