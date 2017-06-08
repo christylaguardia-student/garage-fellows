@@ -51,8 +51,10 @@ app.get('/makes', (request, response) => {
   client.query(`
     SELECT DISTINCT make
     FROM vehicles
-    WHERE year= 1992
-    `)
+    WHERE year= $1
+    `,[
+      request.query.year
+    ])
   .then(result => response.send(result.rows))
   .catch(console.error);
 });
@@ -61,8 +63,11 @@ app.get('/models', (request, response) => {
   client.query(`
     SELECT DISTINCT model
     FROM vehicles
-    WHERE year= 1992 AND make= 'Chevrolet'
-    `)
+    WHERE year= $1 AND make= $2
+    `,[
+      request.query.year,
+      request.query.make
+    ])
   .then(result => response.send(result.rows))
   .catch(console.error);
 });
