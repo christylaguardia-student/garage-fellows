@@ -20,15 +20,23 @@
   </head>
   <body>
     <header>
-      <!-- TODO: add navigation -->
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/inventory">Inventory</a></li>
+          <li><a href="/new">Sell</a></li>
+        </ul>
+      </nav>
     </header>
 
     <section id="home" class="tab-content">
       <h1>Welcome to Garage Fellows!</h1>
       <h3>Sell the car parts you don't need. Buy the ones you do.</h3>
-      <button onclick="alert('This does nothing.')">Buy</button><button onclick="alert('This also does nothing.')">Sell</button>
+      <div><a href="/inventory">Buy</a></div>
+      <div><a href="/new">Sell</a></div>
+      <!-- <button onclick="alert('This does nothing.')">Buy</button><button onclick="alert('This also does nothing.')">Sell</button> -->
     </section>
-    <hr>
 
     <section id="search" class="tab-content">
       <!-- TODO: populate the dropdowns -->
@@ -52,7 +60,6 @@
         <option value="audi">Audi</option>
       </select>
     </section>
-    <hr>
 
     <section id="inventory" class="tab-content">
       <h1>Inventory</h1>
@@ -65,11 +72,10 @@
       </select>
       <!-- inventory templates goes here -->
     </section>
-    <hr>
 
     <section id="add-inventory" class="tab-content">
-      <h1>Post Inventory</h1>
-      <form action="/new" method="POST" id="add-form">
+      <h1>Sell Your Part</h1>
+      <form action="#" id="add-form">
         <div>
           <label for="add-year">Vehicle Year:</label>
           <select id="add-year" required>
@@ -127,12 +133,12 @@
           <input id="add-zipcode" type="text" placeholder="Zip Code" pattern="[0-9]{5}" required>
         </div>
         <div>
-          <button type="submit" id="add-button">Post</button>
+          <button type="submit" id="add-button">Sell</button>
         </div>
       </form>
     </section>
 
-
+    <footer>Copyright (c) 2017 Copyright Holder All Rights Reserved.</footer>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="vendor/scripts/handlebars.js"></script>
@@ -141,14 +147,13 @@
 
     <script type="text/javascript" src="scripts/models/users.js"></script>
     <script type="text/javascript" src="scripts/views/usersView.js"></script>
-    <script type="text/javascript" src="scripts/controllers/usersController.js"></script>
 
     <script type="text/javascript" src="scripts/models/inventory.js"></script>
     <script type="text/javascript" src="scripts/views/inventoryView.js"></script>
-    <script type="text/javascript" src="scripts/controllers/inventoryController.js"></script>
 
     <script type="text/javascript" src="scripts/views/newInventoryView.js"></script>
 
+    <script type="text/javascript" src="scripts/controllers/navigation.js"></script>
     <script type="text/javascript" src="scripts/controllers/routes.js"></script>
   </body>
 </html>

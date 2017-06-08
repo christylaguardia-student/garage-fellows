@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
 app.get('/inventory', (request, response) => {
-  console.log('getting data from db');
+  console.log('getting data from database');
   client.query(`
     SELECT inventoryid,
       year,
@@ -68,11 +68,10 @@ app.get('/models', (request, response) => {
 });
 
 app.post('/new', (request, response) => {
-  // QUESTION: seems to be inserting an empty row also
   client.query(`
     INSERT INTO users (userfirstname, userlastname, email, zipcode)
     VALUES ($1, $2, $3, $4) ON CONFLICT DO NOTHING
-    `,]
+    `,
     [
       request.body.userfirstname,
       request.body.userlastname,
@@ -89,7 +88,7 @@ app.post('/new', (request, response) => {
       `,
       [
         request.body.email,
-        request.body.vehicleid,
+        request.body.vehicleid, // TODO:
         request.body.partname,
         request.body.description,
         request.body.price,

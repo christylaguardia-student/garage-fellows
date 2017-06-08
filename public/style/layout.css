@@ -1,0 +1,7 @@
+.tab-content {
+  min-height: 100vh;
+}
+
+#search, #inventory, #add-inventory {
+  display: none;
+}
