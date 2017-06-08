@@ -1,7 +1,8 @@
 'use strict';
 
-page('/', navigation.loadHomePage, inventoryController.index);;
+page('/', navigation.loadIndexPage);
+page('/home', navigation.loadHomePage);
 page('/search', navigation.loadSearchPage);
-page('/inventory', navigation.loadInventoryPage);
+page('/shop', navigation.loadInventoryPage);
 page('/new', navigation.loadNewPage);
 page();
