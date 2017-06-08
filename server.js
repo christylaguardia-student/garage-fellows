@@ -1,7 +1,6 @@
 'use strict';
 
 const pg = require('pg');
-// const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
@@ -9,13 +8,15 @@ const app = express();
 const conString = process.env.pgURL;
 const client = new pg.Client(conString);
 client.connect();
-client.on('error', function(error) {
-  console.log(error);
-});
+client.on('error', function(error) { console.log(error); });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('./public'));
+
+app.get('/', function(request, response) {
+  response.sendFile('index.html', {root: '.'});
+});
 
 app.get('/inventory', (request, response) => {
   console.log('getting data from database');
@@ -51,8 +52,10 @@ app.get('/makes', (request, response) => {
   client.query(`
     SELECT DISTINCT make
     FROM vehicles
-    WHERE year= 1992
-    `)
+    WHERE year= $1
+    `,[
+      request.query.year
+    ])
   .then(result => response.send(result.rows))
   .catch(console.error);
 });
@@ -61,8 +64,11 @@ app.get('/models', (request, response) => {
   client.query(`
     SELECT DISTINCT model
     FROM vehicles
-    WHERE year= 1992 AND make= 'Chevrolet'
-    `)
+    WHERE year= $1 AND make= $2
+    `,[
+      request.query.year,
+      request.query.make
+    ])
   .then(result => response.send(result.rows))
   .catch(console.error);
 });
