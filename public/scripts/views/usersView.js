@@ -62,6 +62,7 @@ var populateModel = function(make) {
           $('article').fadeIn();
         }
         $('#search-make').val('');
+        $('#search-model').val('');
       });
     };
 
