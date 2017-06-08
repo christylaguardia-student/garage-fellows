@@ -3,8 +3,13 @@
 (function(module) {
   const navigation = {};
 
-  navigation.loadHomePage = function() {
+  navigation.loadIndexPage = function() {
     Inventory.fetchAll(inventoryView.initIndexPage);
+    $('.tab-content').hide();
+    $('#home').fadeIn(1000);
+  }
+
+  navigation.loadHomePage = function() {
     $('.tab-content').hide();
     $('#home').fadeIn(1000);
   }
