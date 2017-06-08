@@ -8,6 +8,7 @@
       $('#inventory').append(a.toHtml());
     });
     console.log('inventory added to page');
+    searchFilters();
   }
 
   inventoryView.handleSortBy = function() {

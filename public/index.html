@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="style/layout.css">
     <link rel="stylesheet" href="style/module.css">
     <script id="inventory-template"  type="text/x-handlebars-template">
-      <article inventory-id="{{ inventoryid }}" inventory-price="{{ priceNum }}" inventory-part="{{ partname }}">
+
+      <article inventory-id="{{ inventoryid }}" inventory-price="{{ price }}" inventory-part="{{ partname }}" inventory-year="{{ year }}" inventory-make="{{ make }}" inventory-model="{{ model }}">
+
         <!-- TODO: add image -->
         <h3>{{ year }} {{ make }} {{ model }} {{ partname }}</h3>
         <p>{{ datecreated }} ({{ daysAgo }})</p>
@@ -39,25 +41,16 @@
     </section>
 
     <section id="search" class="tab-content">
-      <!-- TODO: populate the dropdowns -->
+      <!-- DONE: populate the dropdowns -->
       <h1>Search</h1>
       <select id="search-year">
-        <option value="2017">2017</option>
-        <option value="2016">2016</option>
-        <option value="2015">2015</option>
-        <option value="2014">2014</option>
+        <option value="">-- Filter by Year --</option>
       </select>
-      <select id="search-make" disabled>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
+      <select id="search-make" disabled="true">
+        <option value="">-- Filter by Make --</option>
       </select>
-      <select id="search-model" disabled>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
+      <select id="search-model" disabled="true">
+        <option value="">-- Filter by Model --</option>
       </select>
     </section>
 
