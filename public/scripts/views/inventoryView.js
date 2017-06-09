@@ -64,7 +64,6 @@
   }
 
   inventoryView.handleSortBy();
-  searchFilters();
 
   module.inventoryView = inventoryView;
 })(window);

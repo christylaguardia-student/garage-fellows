@@ -41,6 +41,33 @@ app.get('/inventory', (request, response) => {
   .catch(console.error);
 });
 
+app.get('/search-inventory', (request, response) => {
+  console.log('getting data from database');
+  client.query(`
+    SELECT inventoryid,
+      year,
+      make,
+      model,
+      partname,
+      description,
+      price,
+      email,
+      zipcode,
+      datecreated
+    FROM inventory
+    INNER JOIN vehicles ON vehicles.vehicleId = inventory.vehicleId
+    INNER JOIN users ON users.userId = inventory.userId
+    WHERE vehicles.year=$1 AND vehicles.make=$2 AND vehicles.model=$3
+    ORDER BY datecreated DESC
+    `,[
+      request.query.year,
+      request.query.make,
+      request.query.model
+    ])
+  .then(result => response.send(result.rows))
+  .catch(console.error);
+});
+
 app.get('/vehicle_years', (request, response) => {
   client.query(`
     SELECT DISTINCT year
