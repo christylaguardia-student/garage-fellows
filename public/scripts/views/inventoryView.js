@@ -28,15 +28,37 @@
 
       // sort the inventory
       if (selected === "priceAsc") {
-        Inventory.all.sort(function(a, b) { return a.priceNum - b.priceNum });
+
+        Inventory.all.sort(function(a, b) {
+          return a.priceNum - b.priceNum
+        });
+
       } else if (selected === "priceDesc") {
-        Inventory.all.sort(function(a, b) { return b.priceNum - a.priceNum });
-      }
-      // TODO:  this is not working
-      else if (selected === "partnameAsc") {
-        Inventory.all.sort(function(a, b) { return a.partname > b.partname });
+
+        Inventory.all.sort(function(a, b) {
+          return b.priceNum - a.priceNum
+        });
+
+      } else if (selected === "partnameAsc") {
+
+        Inventory.all.sort(function(a, b) {
+          var partA = a.partname.toUpperCase();
+          var partB = b.partname.toUpperCase();
+          if (partA < partB) { return -1; }
+          if (partA > partB) { return 1; }
+          return 0;
+        })
+
       } else if (selected === "partnameDesc") {
-        Inventory.all.sort(function(a, b) { return a.partname < b.partname });
+
+        Inventory.all.sort(function(a, b) {
+          var partA = a.partname.toUpperCase();
+          var partB = b.partname.toUpperCase();
+          if (partA > partB) { return -1; }
+          if (partA < partB) { return 1; }
+          return 0;
+        })
+
       }
 
       inventoryView.initIndexPage();
