@@ -41,7 +41,7 @@ app.get('/inventory', (request, response) => {
   .catch(console.error);
 });
 
-app.get('/years', (request, response) => {
+app.get('/vehicle_years', (request, response) => {
   client.query(`
     SELECT DISTINCT year
     FROM vehicles ORDER BY year DESC
@@ -50,7 +50,7 @@ app.get('/years', (request, response) => {
   .catch(console.error);
 });
 
-app.get('/makes', (request, response) => {
+app.get('/vehicle_makes', (request, response) => {
   client.query(`
     SELECT DISTINCT make
     FROM vehicles
@@ -62,11 +62,49 @@ app.get('/makes', (request, response) => {
   .catch(console.error);
 });
 
-app.get('/models', (request, response) => {
+app.get('/vehicle_models', (request, response) => {
   client.query(`
     SELECT DISTINCT model
     FROM vehicles
     WHERE year= $1 AND make= $2
+    `,[
+      request.query.year,
+      request.query.make
+    ])
+  .then(result => response.send(result.rows))
+  .catch(console.error);
+});
+
+app.get('/iyears', (request, response) => {
+  client.query(`
+    SELECT DISTINCT v.year
+    FROM inventory i
+    JOIN vehicles v ON v.vehicleid = i.vehicleid
+    ORDER BY v.year DESC
+    `)
+  .then(result => response.send(result.rows))
+  .catch(console.error);
+});
+
+app.get('/imakes', (request, response) => {
+  client.query(`
+    SELECT DISTINCT v.make
+    FROM inventory i
+    JOIN vehicles v ON v.vehicleid = i.vehicleid
+    WHERE v.year= $1
+    `,[
+      request.query.year
+    ])
+  .then(result => response.send(result.rows))
+  .catch(console.error);
+});
+
+app.get('/imodels', (request, response) => {
+  client.query(`
+    SELECT DISTINCT v.model
+    FROM inventory i
+    JOIN vehicles v ON v.vehicleid = i.vehicleid
+    WHERE v.year= $1 AND v.make= $2
     `,[
       request.query.year,
       request.query.make
@@ -91,12 +129,15 @@ app.post('/new', (request, response) => {
     client.query(`
       INSERT INTO inventory (userid, vehicleid, partname, description, price, datecreated)
       VALUES (
-        (SELECT userid FROM users WHERE email=$1 LIMIT 1)
-        , $2, $3, $4, $5, $6)
+        (SELECT userid FROM users WHERE email=$1 LIMIT 1),
+        (SELECT vehicleid FROM vehicles WHERE year=$2 AND make=$3 AND model=$4 LIMIT 1),
+        $5, $6, $7, $8)
       `,
       [
         request.body.email,
-        request.body.vehicleid, // TODO:
+        request.body.year,
+        request.body.make,
+        request.body.model,
         request.body.partname,
         request.body.description,
         request.body.price,

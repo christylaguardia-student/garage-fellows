@@ -15,8 +15,6 @@
     console.log('inventory added to page');
     console.log('inventory count', Inventory.all.length);
     console.log('inventory on page count', $('#inventory').find('article').length);
-
-    searchFilters();
   }
 
   inventoryView.handleSortBy = function() {
@@ -66,6 +64,7 @@
   }
 
   inventoryView.handleSortBy();
+  searchFilters();
 
   module.inventoryView = inventoryView;
 })(window);
