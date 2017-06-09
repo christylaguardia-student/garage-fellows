@@ -8,7 +8,10 @@
       $.post('/new',
         {
           // QUESTION: how should we get the vehicleid?
-          vehicleid: '1',
+          // vehicleid: '1',
+          year: $('#add-year').val();
+          make: $('#add-make').val();
+          model: $('#add-model').val();
           partname: $('#add-partname').val(),
           description: $('#add-description').val(),
           price: $('#add-price').val(),
@@ -20,7 +23,6 @@
         }
       );
     })
-  // }
 
   module.newInventoryView = newInventoryView;
 })(window);
