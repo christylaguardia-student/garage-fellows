@@ -200,11 +200,21 @@ app.post('/new', (request, response) => {
 
 // TODO: delete items
 
-// function loadDB() {
-//   Inventory.fetchAll(inventoryView.initIndexPage);
-// }
-//
-// loadDB();
+app.delete('/inventory/delete:id', (request, response) => {
+  client.query(
+    `DELETE FROM inventory WHERE inventoryId=$1;`,
+    [request.params.id]
+  )
+  .then(() => response.send('Delete complete'))
+  .catch(console.error);
+});
+
+app.delete('/inventory/delete', (request, response) => {
+  client.query('DELETE FROM inventory')
+  .then(() => response.send('Delete complete'))
+  .catch(console.error);
+});
+
 
 app.get('*', (request, response) => response.sendFile('index.html', { root: './public' }));
 
