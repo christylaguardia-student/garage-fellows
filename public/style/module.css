@@ -3,7 +3,28 @@
   padding: 1rem;
 }
 
-#add-form label, #add-form input {
+/*#add-form label, #add-form input {
   display: inline-block;
   width: 10rem;
+}*/
+
+.card {
+  background-color: #fafafa;
+  border: 1px solid #eee;
+  border-radius:8px;
+  padding:4px;
+  height: 23rem;
+  overflow-y: scroll;
+}
+
+input {
+  max-width: 240px;
+}
+
+/*.jumbotron {
+  background-image: url(http://img00.deviantart.net/4f23/i/2010/197/c/d/old_garage_panorama_by_siilver1984.jpg);
+}*/
+
+select {
+  border: 1px solid gray;
 }
