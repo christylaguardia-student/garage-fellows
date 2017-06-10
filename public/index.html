@@ -9,14 +9,19 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script id="inventory-template"  type="text/x-handlebars-template">
-      <article class="col-sm-5 col-sm-offset-1" inventory-id="{{ inventoryid }}" inventory-price="{{ priceNum }}" inventory-part="{{ partname }}" inventory-year="{{ year }}" inventory-make="{{ make }}" inventory-model="{{ model }}" style={border: 1x solid;}>
-
-        <!-- TODO: add image -->
-        <h4>{{ year }} {{ make }} {{ model }} {{ partname }}</h4>
-        <p>{{ datecreated }} ({{ daysAgo }})</p>
-        <p>{{ description }}</p>
-        <p>Location: {{ zipcode }}</p>
-        <p>Price: {{ price }} <a href="mailto:{{ email }}" target="_blank">Contact Seller to Buy</a></p>
+      <article class="col-lg-3 col-md-4 col-sm-6 " inventory-id="{{ inventoryid }}" inventory-price="{{ priceNum }}" inventory-part="{{ partname }}" inventory-year="{{ year }}" inventory-make="{{ make }}" inventory-model="{{ model }}">
+        <div class="card text-center" style="background-color: #fafafa;
+        border: 1px solid #eee; border-radius:8px; padding:4px;">
+          <img class="card-img-top" src="/images/pathToYourImage.png" alt="Card image cap">
+          <div class="card-block">
+            <h4 class="card-title">{{ year }} {{ make }} {{ model }} {{ partname }}</h4>
+            <p class="card-text">Description:{{ description }}</p>
+            <p class="card-text">Price:{{ price }}</p>
+            <p class="card-text">Location:{{ zipcode }}</p>
+            <p class="card-footer"><small>Published On:{{ datecreated }} ({{ daysAgo }})</small></p>
+            <a class="btn btn-sm btn-success" href="mailto:{{ email }}" target="_blank">Contact Seller to Buy</a>
+          </div>
+        </div>
         <br>
       </article>
     </script>
@@ -34,10 +39,10 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
-         <li><a href="/home">Home</a></li>
-         <li><a href="/search">Search</a></li>
-         <li><a href="/shop">Inventory</a></li>
-         <li><a href="/new">Sell</a></li>
+          <li><a href="/home">Home</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/shop">Inventory</a></li>
+          <li><a href="/new">Sell</a></li>
         </ul>
       </div>
     </div>
@@ -62,15 +67,15 @@
         </select>
       </div>
       <div class="form-group col-sm-4">
-      <select id="search-make">
-        <option value="">-- Select Make --</option>
-      </select>
-    </div>
-    <div class="form-group col-sm-4">
-      <select id="search-model">
-        <option value="">-- Select Model --</option>
-      </select>
-    </div>
+        <select id="search-make">
+          <option value="">-- Select Make --</option>
+        </select>
+      </div>
+      <div class="form-group col-sm-4">
+        <select id="search-model">
+          <option value="">-- Select Model --</option>
+        </select>
+      </div>
     </div>
     <div class="col-md-4 col-md-offset-4 text-center">
       <br>
@@ -81,7 +86,7 @@
   <section id="inventory" class="container tab-content">
     <h3 class="text-center text-muted">Inventory</h3>
     <div>
-      <select class="col-sm-4 col-sm-offset-4" id="inventory-sort">
+      <select class="col-xs-4 col-xs-offset-4" id="inventory-sort">
         <option value="">--- Sort By ---</option>
         <option value="priceAsc">Price (Low-High)</option>
         <option value="priceDesc">Price (High-Low)</option>
@@ -89,92 +94,90 @@
         <option value="partnameDesc">Part Name (Z-A)</option>
       </select>
     </div>
-
-
-
+    <br>
+    <br>
     <!-- inventory templates goes here -->
   </section>
-
-    <section id="add-inventory" class="container collapse tab-content">
-      <h1 class="text-center text-muted">Sell Your Part</h1>
-      <form action="#" id="add-form">
-        <div class="row">
-          <div class="form-group col-sm-4">
-            <!-- <label for="add-year">Vehicle Year:</label> -->
-            <select id="add-year" required>
-              <option value="">-- Select Year ---</option>
-            </select>
-          </div>
-          <div class="form-group col-sm-4">
-            <!-- <label for="add-make">Vehicle Make:</label> -->
-            <select id="add-make" required>
-              <option value="">-- Select Make ---</option>
-            </select>
-          </div>
-          <div class="form-group col-sm-4">
-            <!-- <label for="add-model">Vehicle Model:</label> -->
-            <select id="add-model" required>
-              <option value="">-- Select Model ---</option>
-            </select>
-          </div>
+  <section id="add-inventory" class="container collapse tab-content">
+    <h3 class="text-center text-muted">Sell Your Parts</h3>
+    <form action="#" id="add-form">
+      <div class="row">
+        <div class="form-group col-sm-4">
+          <!-- <label for="add-year">Vehicle Year:</label> -->
+          <select id="add-year" required>
+            <option value="">-- Select Year ---</option>
+          </select>
         </div>
-        <div class="row">
-          <div class="form-group col-xs-6">
-            <label for="add-partname">Part Name:</label>
-            <input class="form-control" id="add-partname" type="text" placeholder="Part Name" maxlength="50" required>
-          </div>
-          <div class="form-group col-xs-6">
-            <label for="add-price">Price:</label>
-            <input class="form-control" id="add-price" type="number" placeholder="100.00" min="0.01" step="0.01" required>
-          </div>
+        <div class="form-group col-sm-4">
+          <!-- <label for="add-make">Vehicle Make:</label> -->
+          <select id="add-make" required>
+            <option value="">-- Select Make ---</option>
+          </select>
         </div>
-        <div class="row justify-content-center">
+        <div class="form-group col-sm-4">
+          <!-- <label for="add-model">Vehicle Model:</label> -->
+          <select id="add-model" required>
+            <option value="">-- Select Model ---</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-6">
+          <label for="add-partname">Part Name:</label>
+          <input class="form-control" id="add-partname" type="text" placeholder="Part Name" maxlength="50" required>
+        </div>
+        <div class="form-group col-xs-6">
+          <label for="add-price">Price:</label>
+          <input class="form-control" id="add-price" type="number" placeholder="100.00" min="0.01" step="0.01" required>
+        </div>
+      </div>
+      <div class="row justify-content-center">
         <div class="form-group col-sm-12">
           <label for="add-description">Description:</label>
           <textarea class="form-control" id="add-description" placeholder="Optional" maxlength="1000"></textarea>
         </div>
       </div>
-        <div class="row justify-content-center">
-          <div class="form-group col-xs-6">
-            <label for="add-firstname">First Name:</label>
-            <input class="form-control" id="add-firstname" type="text" placeholder="First Name" maxlength="50" required>
-          </div>
-          <div class="form-group col-xs-6">
-            <label for="add-lastname">Last Name:</label>
-            <input class="form-control" id="add-lastname" type="text" placeholder="Last Name" maxlength="50" required>
-          </div>
+      <div class="row justify-content-center">
+        <div class="form-group col-xs-6">
+          <label for="add-firstname">First Name:</label>
+          <input class="form-control" id="add-firstname" type="text" placeholder="First Name" maxlength="50" required>
         </div>
-        <div class="row">
-          <div class="form-group col-sm-6">
-            <label for="add-email">E-mail:</label>
-            <input class="form-control" id="add-email" type="email" placeholder="someone@example.com" maxlength="254" required>
-          </div>
-          <div class="form-group col-sm-6">
-            <label for="add-zipcode">Shipping Zip Code:</label>
-            <input class="form-control" id="add-zipcode" type="text" placeholder="Zip Code" pattern="[0-9]{5}" required>
-          </div>
+        <div class="form-group col-xs-6">
+          <label for="add-lastname">Last Name:</label>
+          <input class="form-control" id="add-lastname" type="text" placeholder="Last Name" maxlength="50" required>
         </div>
-      </form>
-    </section>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-6">
+          <label for="add-email">E-mail:</label>
+          <input class="form-control" id="add-email" type="email" placeholder="someone@example.com" maxlength="254" required>
+        </div>
+        <div class="form-group col-sm-6">
+          <label for="add-zipcode">Shipping Zip Code:</label>
+          <input class="form-control" id="add-zipcode" type="text" placeholder="Zip Code" pattern="[0-9]{5}" required>
+        </div>
+      </div>
+    </form>
+  </section>
 
-<footer>Copyright (c) 2017 Copyright Holder All Rights Reserved.</footer>
+  <footer>Copyright (c) 2017 Copyright Holder All Rights Reserved.</footer>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="vendor/scripts/handlebars.js"></script>
-<script src="vendor/scripts/page.js"></script>
-<script src="vendor/scripts/date.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="vendor/scripts/handlebars.js"></script>
+  <script src="vendor/scripts/page.js"></script>
+  <script src="vendor/scripts/date.js"></script>
 
-<script src="scripts/models/vehicles.js"></script>
+  <script src="scripts/models/vehicles.js"></script>
 
-<script type="text/javascript" src="scripts/models/searchInventory.js"></script>
-<script type="text/javascript" src="scripts/views/searchInventoryView.js"></script>
+  <script type="text/javascript" src="scripts/models/searchInventory.js"></script>
+  <script type="text/javascript" src="scripts/views/searchInventoryView.js"></script>
 
-<script type="text/javascript" src="scripts/models/inventory.js"></script>
-<script type="text/javascript" src="scripts/views/inventoryView.js"></script>
+  <script type="text/javascript" src="scripts/models/inventory.js"></script>
+  <script type="text/javascript" src="scripts/views/inventoryView.js"></script>
 
-<script type="text/javascript" src="scripts/views/newInventoryView.js"></script>
+  <script type="text/javascript" src="scripts/views/newInventoryView.js"></script>
 
-<script type="text/javascript" src="scripts/controllers/navigation.js"></script>
-<script type="text/javascript" src="scripts/controllers/routes.js"></script>
+  <script type="text/javascript" src="scripts/controllers/navigation.js"></script>
+  <script type="text/javascript" src="scripts/controllers/routes.js"></script>
 </body>
 </html>
