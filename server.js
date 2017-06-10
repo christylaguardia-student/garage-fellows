@@ -55,6 +55,7 @@ app.get('/inventory', (request, response) => {
       offset,
       limit
     ]
+    // QUESTION: not sure if we need this
     // ,function(err, result) {
     //   var count = parseInt(result.row[0].count, 10);
     // }
