@@ -20,6 +20,7 @@
           datecreated: Date.today().toString('yyyy-MM-dd')
         }
       );
+      $('#upload').addClass('jumbotron').html('<h3>Thanks for posting, you can see this add on the inventory page on our website</h3>');
     })
 
   module.newInventoryView = newInventoryView;
