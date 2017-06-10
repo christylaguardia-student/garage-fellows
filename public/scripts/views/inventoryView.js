@@ -4,17 +4,25 @@
   const inventoryView = {};
 
   inventoryView.initIndexPage = function() {
+    console.log('======inventory all ======', Inventory.all);
     // remove existing
     $('#inventory').find('article').remove();
-    console.log('inventory removed from page');
+    // console.log('inventory removed from page', Inventory.all);
+
+    if (Inventory.all.length === 0) {
+      // get data from local storage
+      Inventory.all = JSON.parse(localStorage.getItem('search_results')).map(ele => new Inventory(ele));
+      console.log('getting data from local storage', Inventory.all);
+    }
 
     // add all inventory
     Inventory.all.forEach(function(a) {
       $('#inventory').append(a.toHtml());
     });
-    console.log('inventory added to page');
-    console.log('inventory count', Inventory.all.length);
-    console.log('inventory on page count', $('#inventory').find('article').length);
+
+    // console.log('inventory added to page', Inventory.all);
+    // console.log('inventory count', Inventory.all.length);
+    // console.log('inventory on page count', $('#inventory').find('article').length);
   }
 
   inventoryView.handleSortBy = function() {

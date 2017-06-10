@@ -46,9 +46,12 @@
 
   Inventory.loadAll = rows => {
     Inventory.all = rows.map(ele => new Inventory(ele));
+    console.log('invnetory load all', Inventory.all);
+    localStorage.setItem('search_results', JSON.stringify(Inventory.all));
   }
 
   Inventory.fetchAll = callback => {
+    console.log('fetching the inventory data now...');
     $.get('/inventory')
     .then(
       results => {
