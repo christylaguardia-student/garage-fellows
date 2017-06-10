@@ -3,10 +3,9 @@
 const pg = require('pg');
 const express = require('express');
 const bodyParser = require('body-parser');
-// const paginate = require('express-paginate');
 const PORT = process.env.PORT || 3000;
 const app = express();
-const conString = process.env.pgURL;
+const conString = process.env.DATABASE_URL;
 const client = new pg.Client(conString);
 client.connect();
 client.on('error', function(error) { console.log(error); });
@@ -200,5 +199,13 @@ app.post('/new', (request, response) => {
 });
 
 // TODO: delete items
+
+// function loadDB() {
+//   Inventory.fetchAll(inventoryView.initIndexPage);
+// }
+//
+// loadDB();
+
+app.get('*', (request, response) => response.sendFile('index.html', { root: './public' }));
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
