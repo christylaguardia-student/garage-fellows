@@ -109,8 +109,12 @@
     })
   }
 
+  // this is the thing that does the search!!!!!!!!!!!
   searchView.loadAll = rows => {
     Inventory.all = rows.map(ele => new Inventory(ele));
+    localStorage.setItem('search_results', JSON.stringify(Inventory.all));
+    console.log('search data put in local storage');
+
     inventoryView.initIndexPage();
     console.log(Inventory.all);
   }

@@ -7,8 +7,6 @@
     $('#add-button').click(function() {
       $.post('/new',
         {
-          // QUESTION: how should we get the vehicleid?
-          // vehicleid: '1',
           year: $('#add-year').val(),
           make: $('#add-make').val(),
           model: $('#add-model').val(),
