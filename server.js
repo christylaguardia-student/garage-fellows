@@ -3,6 +3,7 @@
 const pg = require('pg');
 const express = require('express');
 const bodyParser = require('body-parser');
+// const paginate = require('express-paginate');
 const PORT = process.env.PORT || 3000;
 const app = express();
 const conString = process.env.pgURL;
@@ -20,6 +21,20 @@ app.get('/', function(request, response) {
 
 app.get('/inventory', (request, response) => {
   console.log('getting data from database');
+
+  // check if integer is passed into query string
+  var page = parseInt(request.query.page, 10);
+  if (isNaN(page) || page < 1) { page = 1; }
+
+  // check if limit is too big so not to crash the server
+  var limit = parseInt(request.query.limit, 10);
+  if (isNaN(limit)) { limit = 10; }
+  else if (limit > 50 ) { limit = 50; }
+  else if (limit < 1 ) { limit = 1; }
+
+  // calculate the OFFSET
+  var offset = (page - 1) * limit;
+
   client.query(`
     SELECT inventoryid,
       year,
@@ -34,9 +49,17 @@ app.get('/inventory', (request, response) => {
     FROM inventory
     INNER JOIN vehicles ON vehicles.vehicleId = inventory.vehicleId
     INNER JOIN users ON users.userId = inventory.userId
-    ORDER BY datecreated DESC
-    LIMIT 100
-    `)
+    ORDER BY inventoryid
+    OFFSET $1 LIMIT $2
+    `,[
+      offset,
+      limit
+    ]
+    // QUESTION: not sure if we need this
+    // ,function(err, result) {
+    //   var count = parseInt(result.row[0].count, 10);
+    // }
+  )
   .then(result => response.send(result.rows))
   .catch(console.error);
 });
