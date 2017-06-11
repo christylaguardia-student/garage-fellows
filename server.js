@@ -64,6 +64,24 @@ app.get('/inventory', (request, response) => {
   .catch(console.error);
 });
 
+app.get('/count-inventory', (request, response) => {
+  client.query(`SELECT COUNT(*) FROM inventory`)
+  .then(result => response.send(result.rows))
+  .catch(console.error);
+});
+
+app.get('/count-users', (request, response) => {
+  client.query(`SELECT COUNT(*) FROM users`)
+  .then(result => response.send(result.rows))
+  .catch(console.error);
+});
+
+app.get('/sum-price', (request, response) => {
+  client.query(`SELECT SUM(price) FROM inventory`)
+  .then(result => response.send(result.rows))
+  .catch(console.error);
+});
+
 app.get('/search-inventory', (request, response) => {
   console.log('getting data from database');
   client.query(`
