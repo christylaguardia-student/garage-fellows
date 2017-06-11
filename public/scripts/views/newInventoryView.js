@@ -6,6 +6,9 @@
   newInventoryView.create = function() {
     $('#add-button').click(function() {
 
+    // TODO: check if form is filled out completly
+
+    // check if button has already been clicked (not their first post)
       if ($('#add-button').text() == 'Create Another Listing') {
         newInventoryView.hideSucessMsg();
       } else {
