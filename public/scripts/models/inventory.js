@@ -17,6 +17,11 @@
     this.zipcode = item.zipcode;
     this.datecreated = item.datecreated;
     this.daysAgo = item.daysAgo;
+    if (item.imagesource == null) {
+      this.imagesource = "default.png";
+    } else {
+      this.imagesource = item.imagesource;
+    };
   }
 
   Inventory.all = [];
@@ -26,7 +31,8 @@
 
     // format the date nicely
     var date = new Date(this.datecreated);
-    this.datecreated = date.toString("ddd, MMMM d, yyyy");
+    // this.datecreated = date.toString("ddd, MMMM d, yyyy");
+    this.datecreated = date.toString("M/d/yyyy");
 
     // calculated how many days posted
     var daysElapsed = parseInt((new Date() - date)/60/60/24/1000);

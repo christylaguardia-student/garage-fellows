@@ -1,6 +1,6 @@
-CREATE TABLE parts (partname VARCHAR(50));
+-- CREATE TABLE parts (partname VARCHAR(50));
 
-INSERT INTO parts (partname) VALUES ('Tires'),('Alternator'),('Water Pump'),('Camshaft'),('Intake Manifold'),('Spark Plugs'),('Exhaust'),('Headlight'),('Belts'),('Brake Pads');
+-- INSERT INTO parts (partname) VALUES ('Tires'),('Alternator'),('Water Pump'),('Camshaft'),('Intake Manifold'),('Spark Plugs'),('Exhaust'),('Headlight'),('Belts'),('Brake Pads');
 
 -- THIS WILL INSERT 379020 ROWS
 INSERT INTO inventory (userId, vehicleId, partName, description, price, datecreated)
@@ -11,3 +11,27 @@ INSERT INTO inventory (userId, vehicleId, partName, description, price, datecrea
         , (RANDOM()*(200-5)+5)::numeric::money
         , '2017-06-08'
 FROM vehicles, parts);
+
+DROP TABLE parts;
+
+CREATE TABLE parts (partname VARCHAR(50), imagesource VARCHAR(255));
+
+INSERT INTO parts (partname, imagesource)
+VALUES ('Tires', 'tire.png'),
+        ('Alternator', 'generator.png'),
+        ('Water Pump', 'vintage-water-pump.png'),
+        ('Camshaft', 'engine.png'),
+        ('Intake Manifold', 'suspension.png'),
+        ('Spark Plugs', 'spark-plug.png'),
+        ('Exhaust', 'exhaust-pipe.png'),
+        ('Headlight', 'headlight.png'),
+        ('Belts', 'car.png'),
+        ('Brake Pads', 'disc-brake.png');
+
+ALTER TABLE inventory
+ADD COLUMN imagesource VARCHAR(255);
+
+UPDATE inventory
+SET imagesource = parts.imagesource
+FROM parts
+WHERE parts.partname = inventory.partname;

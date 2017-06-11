@@ -44,7 +44,8 @@ app.get('/inventory', (request, response) => {
       price,
       email,
       zipcode,
-      datecreated
+      datecreated,
+      imagesource
     FROM inventory
     INNER JOIN vehicles ON vehicles.vehicleId = inventory.vehicleId
     INNER JOIN users ON users.userId = inventory.userId
@@ -75,7 +76,8 @@ app.get('/search-inventory', (request, response) => {
       price,
       email,
       zipcode,
-      datecreated
+      datecreated,
+      imagesource
     FROM inventory
     INNER JOIN vehicles ON vehicles.vehicleId = inventory.vehicleId
     INNER JOIN users ON users.userId = inventory.userId
@@ -194,15 +196,14 @@ app.post('/new', (request, response) => {
       ]
     )
   })
-  .then(() => response.send('Your part has been posted!'))
+  // .then(() => response.send('Your part has been posted!'))
   .catch(console.error);
+  console.log('new record added to the inventory table');
 });
-
-// TODO: delete items
 
 app.delete('/inventory/delete:id', (request, response) => {
   client.query(
-    `DELETE FROM inventory WHERE inventoryId=$1;`,
+    `DELETE FROM inventory WHERE inventoryid=$1;`,
     [request.params.id]
   )
   .then(() => response.send('Delete complete'))
@@ -214,7 +215,6 @@ app.delete('/inventory/delete', (request, response) => {
   .then(() => response.send('Delete complete'))
   .catch(console.error);
 });
-
 
 app.get('*', (request, response) => response.sendFile('index.html', { root: './public' }));
 

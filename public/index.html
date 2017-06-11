@@ -5,7 +5,7 @@
   <title>Garage Fellows</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <link rel="shortcut icon" href="images/mechanic.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
 
@@ -16,13 +16,12 @@
     <article class="col-lg-3 col-md-4 col-sm-6" inventory-id="{{ inventoryid }}" inventory-price="{{ priceNum }}" inventory-part="{{ partname }}"
       inventory-year="{{ year }}" inventory-make="{{ make }}" inventory-model="{{ model }}">
       <div class="card text-center">
-        <img class="card-img-top" src="images/engine.png" alt="Card image cap">
+        <img class="card-img-top" src="images/{{ imagesource }}" alt="Card image cap">
         <div class="card-block">
           <h4 class="card-title">{{ year }} {{ make }} {{ model }} <br> {{ partname }}</h4>
-          <p class="card-text">Description:{{ description }} <br> </p>
-          <p class="card-text">Price:{{ price }}</p>
-          <p class="card-text">Location:{{ zipcode }}</p>
-          <p class="card-footer"><small>Published On:{{ datecreated }} ({{ daysAgo }})</small></p>
+          <p class="card-text">{{ description }} <br> </p>
+          <p class="card-text">{{ price }} ({{ zipcode }})</p>
+          <p class="card-footer"><small>{{ datecreated }} ({{ daysAgo }})</small></p>
           <a class="btn btn-sm btn-success" href="mailto:{{ email }}" target="_blank">Contact Seller to Buy</a>
         </div>
       </div>
@@ -46,7 +45,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/home">Home</a></li>
           <li><a href="/search">Search</a></li>
-          <li><a href="/shop">Inventory</a></li>
+          <li><a href="/shop">Shop</a></li>
           <li><a href="/new">Sell</a></li>
         </ul>
       </div>
@@ -60,7 +59,7 @@
         meet.</p>
       <div class="col-4 col-offset-4 text-center">
         <button type="button" class="btn btn-warning btn-lg" onclick="navigation.loadSearchPage();">Buy</button>
-        <button type="button" class="btn btn-warning btn-lg" onclick="navigation.loadNewPage ();">Sell</button>
+        <button type="button" class="btn btn-warning btn-lg" onclick="navigation.loadNewPage();">Sell</button>
       </div>
     </div>
   </div>
@@ -112,22 +111,22 @@
   </section>
   <section id="add-inventory" class="container collapse tab-content">
     <h3 class="text-center text-muted">Sell Your Parts</h3>
-    <form action="#" id="add-form">
+    <form id="add-form">
       <div class="row">
         <div class="form-group col-sm-4">
-          <!-- <label for="add-year">Vehicle Year:</label> -->
+          <label for="add-year">Vehicle Year:</label>
           <select id="add-year" required>
             <option value="">-- Select Year ---</option>
           </select>
         </div>
         <div class="form-group col-sm-4">
-          <!-- <label for="add-make">Vehicle Make:</label> -->
+          <label for="add-make">Vehicle Make:</label>
           <select id="add-make" required>
             <option value="">-- Select Make ---</option>
           </select>
         </div>
         <div class="form-group col-sm-4">
-          <!-- <label for="add-model">Vehicle Model:</label> -->
+          <label for="add-model">Vehicle Model:</label>
           <select id="add-model" required>
             <option value="">-- Select Model ---</option>
           </select>
@@ -168,11 +167,11 @@
         </div>
         <div class="form-group col-sm-6">
           <label for="add-zipcode">Shipping Zip Code:</label>
-          <input class="form-control" id="add-zipcode" type="number" placeholder="Zip Code" pattern="[0-9]{5}" required>
+          <input class="form-control" id="add-zipcode" type="number" placeholder="Zip Code" maxlength="5" pattern="[0-9]{5}" required>
         </div>
       </div>
       <div class="col-4 col-offset-4 text-center">
-        <button class="btn btn-warning btn-lg" type="submit" id="add-button">Sell</button>
+        <button class="btn btn-warning btn-lg" type="button" id="add-button">Create Listing</button>
       </div>
       <br><br>
       <div class="container text-center">
@@ -184,7 +183,7 @@
 
   <div id="footer">
     <div class="container">
-      <p class="muted credit">Copyright &copy 2017 Garage Fellows.<br><small>All Rights Reserved.</small>
+      <p class="muted credit"><a href="https://www.youtube.com/watch?v=ug4c2mqlE_0">&copy; </a>2017 Garage Fellows.<br><small>All Rights Reserved. Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></small>
     </div>
   </div>
 
