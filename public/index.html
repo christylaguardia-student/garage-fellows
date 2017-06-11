@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <title>Garage Fellows</title>
   <meta charset="utf-8">
@@ -8,10 +7,14 @@
   <link rel="shortcut icon" href="images/mechanic.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Racing+Sans+One|Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="vendor/styles/odometer-theme-car.css" />
+  <script src="vendor/scripts/odometer.min.js"></script>
+  <link rel="stylesheet" href="style/base.css">
   <link rel="stylesheet" href="style/module.css">
+
   <script id="inventory-template" type="text/x-handlebars-template">
     <article class="col-lg-3 col-md-4 col-sm-6" inventory-id="{{ inventoryid }}" inventory-price="{{ priceNum }}" inventory-part="{{ partname }}"
       inventory-year="{{ year }}" inventory-make="{{ make }}" inventory-model="{{ model }}">
@@ -20,30 +23,29 @@
         <div class="card-block">
           <h4 class="card-title">{{ year }} {{ make }} {{ model }} <br> {{ partname }}</h4>
           <p class="card-text">{{ description }} <br> </p>
-          <p class="card-text">{{ price }} ({{ zipcode }})</p>
-          <p class="card-footer"><small>{{ datecreated }} ({{ daysAgo }})</small></p>
-          <a class="btn btn-sm btn-success" href="mailto:{{ email }}" target="_blank">Contact Seller to Buy</a>
+          <p class="card-text">{{ price }} (Located in {{ zipcode }})</p>
+          <p class="card-footer"><small>Posted {{ daysAgo }}</small></p>
+          <a class="btn btn-sm btn-success" href="mailto:{{ email }}" target="_blank">Contact Seller</a>
         </div>
       </div>
       <br>
     </article>
   </script>
 </head>
-
 <body>
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
+        <!-- hamburger icon -->
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Garage Fellows</a>
+        <a class="navbar-brand" href="/">Garage Fellows</a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/home">Home</a></li>
           <li><a href="/search">Search</a></li>
           <li><a href="/shop">Shop</a></li>
           <li><a href="/new">Sell</a></li>
@@ -51,40 +53,48 @@
       </div>
     </div>
   </nav>
-  <div class="container">
+  <section id="home" class="container collapse tab-content">
+  <!-- <div class="container"> -->
     <div class="jumbotron">
-      <h2 class="text-center">Welcome to Garage Fellows</h2>
-      <p>This is a place for you to find the parts you are looking for to complete your auto project, and at the same time you
-        can sell the parts that you don't need. Empty your garage to help others find the parts they need. An online swap
-        meet.</p>
+      <h1 class="text-center">Garage Fellows</h1>
+      <h3 class="text-center">The Car Hobbyist's Online Swap Meet</h3>
+      <br>
+      <br>
       <div class="col-4 col-offset-4 text-center">
-        <button type="button" class="btn btn-warning btn-lg" onclick="navigation.loadSearchPage();">Buy</button>
-        <button type="button" class="btn btn-warning btn-lg" onclick="navigation.loadNewPage();">Sell</button>
+        <button type="button" class="btn btn-warning btn-lg" onclick="navigation.loadSearchPage();">Buy the parts you need</button>
+        <button type="button" class="btn btn-warning btn-lg" onclick="navigation.loadNewPage();">Sell the parts you don't</button>
       </div>
+      <br>
+      <br>
+      <div class="col-4 col-offset-4 text-center">
+        <h3>Parts for Sale</h3>
+        <p id="part-count" class="text-center odometer"></p>
+      </div>
+      <!-- <h3 id="price-sum" class="text-center odometer"></h3> -->
+      <!-- <h3 id="user-count" class="text-center odometer"></h3> -->
     </div>
-  </div>
-  <!-- <div class="container">
-  <div class="jumbotron .visible-xs-block hidden-xs">
-    <img src="http://img00.deviantart.net/4f23/i/2010/197/c/d/old_garage_panorama_by_siilver1984.jpg">
-  </div>
-</div> -->
+  <!-- </div> -->
+</section>
+
   <section id="search" class="container collapse tab-content">
-    <!-- DONE: populate the dropdowns -->
-    <h3 class="text-center text-muted">Search</h3>
+    <h3 class="text-center text-muted">Find Parts</h3>
     <div class="row text-center">
       <div class="form-group col-sm-4">
+        <label for="search-year">Vehicle Year:</label>
         <select id="search-year">
-          <option value="">-- Select Year --</option>
+          <option value="">Select</option>
         </select>
       </div>
       <div class="form-group col-sm-4">
+        <label for="search-make">Vehicle Make:</label>
         <select id="search-make">
-          <option value="">-- Select Make --</option>
+          <option value="">Select</option>
         </select>
       </div>
       <div class="form-group col-sm-4">
+        <label for="search-model">Vehicle Model:</label>
         <select id="search-model">
-          <option value="">-- Select Model --</option>
+          <option value="">Select</option>
         </select>
       </div>
     </div>
@@ -95,10 +105,10 @@
   </section>
 
   <section id="inventory" class="container collapse tab-content">
-    <h3 class="text-center text-muted">Inventory</h3>
+    <h3 class="text-center text-muted">Parts For Sell</h3>
     <div>
       <select class="col-xs-4 col-xs-offset-4" id="inventory-sort">
-        <option value="">--- Sort By ---</option>
+        <option value="">Sort By</option>
         <option value="priceAsc">Price (Low-High)</option>
         <option value="priceDesc">Price (High-Low)</option>
         <option value="partnameAsc">Part Name (A-Z)</option>
@@ -110,67 +120,68 @@
     <!-- inventory templates goes here -->
   </section>
   <section id="add-inventory" class="container collapse tab-content">
-    <h3 class="text-center text-muted">Sell Your Parts</h3>
+    <h3 class="text-center text-muted">Sell Your Part</h3>
     <form id="add-form">
       <div class="row">
         <div class="form-group col-sm-4">
-          <label for="add-year">Vehicle Year:</label>
+          <label for="add-year">Vehicle Year* </label>
           <select id="add-year" required>
-            <option value="">-- Select Year ---</option>
+            <option value="">Select</option>
           </select>
         </div>
         <div class="form-group col-sm-4">
-          <label for="add-make">Vehicle Make:</label>
+          <label for="add-make">Make* </label>
           <select id="add-make" required>
-            <option value="">-- Select Make ---</option>
+            <option value="">Select</option>
           </select>
         </div>
         <div class="form-group col-sm-4">
-          <label for="add-model">Vehicle Model:</label>
+          <label for="add-model">Model* </label>
           <select id="add-model" required>
-            <option value="">-- Select Model ---</option>
+            <option value="">Select</option>
           </select>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-xs-6">
-          <label for="add-partname">Part Name:</label>
+          <label for="add-partname">Part Name* </label>
           <input class="form-control" id="add-partname" type="text" placeholder="Part Name" maxlength="50" required>
         </div>
         <div class="form-group col-xs-6">
-          <label for="add-price">Price:</label>
+          <label for="add-price">Price* </label>
           <input class="form-control" id="add-price" type="number" placeholder="100.00" min="0.01" step="0.01" required>
         </div>
       </div>
       <div class="row justify-content-center">
         <div class="form-group col-sm-12">
-          <label for="add-description">Description:</label>
+          <label for="add-description">Description </label>
           <textarea class="form-control" id="add-description" placeholder="Optional" maxlength="1000"></textarea>
         </div>
       </div>
       <div class="row justify-content-center">
         <div class="form-group col-sm-12">
-          <label for="add-firstname">First Name:</label>
+          <label for="add-firstname">First Name* </label>
           <input class="form-control" id="add-firstname" type="text" placeholder="First Name" maxlength="50" required>
         </div>
       </div>
       <div class="row justify-content-center">
         <div class="form-group col-sm-12">
-          <label for="add-lastname">Last Name:</label>
+          <label for="add-lastname">Last Name* </label>
           <input class="form-control" id="add-lastname" type="text" placeholder="Last Name" maxlength="50" required>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-sm-6">
-          <label for="add-email">E-mail:</label>
+          <label for="add-email">E-mail* </label>
           <input class="form-control" id="add-email" type="email" placeholder="someone@example.com" maxlength="254" required>
         </div>
         <div class="form-group col-sm-6">
-          <label for="add-zipcode">Shipping Zip Code:</label>
+          <label for="add-zipcode">Part Location Zip Code* </label>
           <input class="form-control" id="add-zipcode" type="number" placeholder="Zip Code" maxlength="5" pattern="[0-9]{5}" required>
         </div>
       </div>
       <div class="col-4 col-offset-4 text-center">
+        <!-- TODO: changeing from submit button meses up the validation  -->
         <button class="btn btn-warning btn-lg" type="button" id="add-button">Create Listing</button>
       </div>
       <br><br>
@@ -183,27 +194,22 @@
 
   <div id="footer">
     <div class="container">
-      <p class="muted credit"><a href="https://www.youtube.com/watch?v=ug4c2mqlE_0">&copy; </a>2017 Garage Fellows.<br><small>All Rights Reserved. Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></small>
+      <p class="muted credit"><a href="https://www.youtube.com/watch?v=ug4c2mqlE_0">&copy; </a>2017 Garage Fellows.<br>
+        <small>All Rights Reserved. Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></small>
     </div>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
   <script src="vendor/scripts/handlebars.js"></script>
   <script src="vendor/scripts/page.js"></script>
   <script src="vendor/scripts/date.js"></script>
-
   <script src="scripts/models/vehicles.js"></script>
-
   <script type="text/javascript" src="scripts/models/searchInventory.js"></script>
   <script type="text/javascript" src="scripts/views/searchInventoryView.js"></script>
-
   <script type="text/javascript" src="scripts/models/inventory.js"></script>
   <script type="text/javascript" src="scripts/views/inventoryView.js"></script>
-
   <script type="text/javascript" src="scripts/views/newInventoryView.js"></script>
-
   <script type="text/javascript" src="scripts/controllers/navigation.js"></script>
   <script type="text/javascript" src="scripts/controllers/routes.js"></script>
 </body>
-
 </html>
