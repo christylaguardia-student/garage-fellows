@@ -1,8 +1,8 @@
 --CREATE DATABASE  garagefellows;
 
+DROP TABLE IF EXISTS inventory;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS vehicles;
-DROP TABLE IF EXISTS inventory;
 
 CREATE TABLE users (
 	userId SERIAL,
