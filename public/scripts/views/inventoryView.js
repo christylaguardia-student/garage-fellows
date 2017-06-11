@@ -48,7 +48,7 @@
 
       // check what the user selected
       var selected = $(this).val();
-      console.log('the user picked sort by', selected);
+     // console.log('the user picked sort by', selected);
 
       // sort the inventory
       if (selected === "priceAsc") {
