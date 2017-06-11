@@ -12,7 +12,7 @@ INSERT INTO inventory (userId, vehicleId, partName, description, price, datecrea
         , '2017-06-08'
 FROM vehicles, parts);
 
-DROP TABLE parts;
+DROP TABLE IF EXISTS parts;
 
 CREATE TABLE parts (partname VARCHAR(50), imagesource VARCHAR(255));
 

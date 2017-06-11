@@ -23,7 +23,6 @@
     $.get('/count-inventory')
     .then(
       results => {
-        // var count = results[0].count.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"); // format with commas
         $('#part-count').text(`${results[0].count} Parts`);
       });
 
@@ -31,15 +30,16 @@
     // $.get('/count-users')
     // .then(
     //   results => {
-    //     var count = results[0].count.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"); // format with commas
-    //     $('#user-count').text(`${count} Users`);
+    //     // var count = results[0].count.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"); // format with commas
+    //     $('#user-count').text(`${results[0].count} Users`);
     //   });
 
-    // get count of unique users
+    // get sum of Inventory
     // $.get('/sum-price')
     // .then(
     //   results => {
-    //     $('#price-sum').text(`${results[0].sum} of Inventory`);
+    //     var sum = parseFloat(results[0].sum.replace(/[$,]+/g,""));
+    //     $('#price-sum').text(`${results[0].sum}`);
     //   });
   }
 
